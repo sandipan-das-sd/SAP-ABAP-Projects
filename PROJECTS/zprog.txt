@@ -1,0 +1,182 @@
+CLASS ztableitr DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC.
+
+  PUBLIC SECTION.
+    INTERFACES if_oo_adt_classrun.
+ENDCLASS.
+
+
+
+CLASS ztableitr IMPLEMENTATION.
+
+  METHOD if_oo_adt_classrun~main.
+
+*--------------------------------------------------------------------
+* Simple Internal Table Example
+*--------------------------------------------------------------------
+
+    DATA: lt_names TYPE TABLE OF string,
+          lv_name  TYPE string.
+
+    APPEND 'Sandipan' TO lt_names.
+    APPEND 'Rahul' TO lt_names.
+    APPEND 'Amit' TO lt_names.
+
+    out->write( '===== NAME LIST =====' ).
+
+    LOOP AT lt_names INTO lv_name.
+      out->write( lv_name ).
+    ENDLOOP.
+
+
+
+*--------------------------------------------------------------------
+* PROJECT 1 : STUDENT MANAGEMENT SYSTEM
+*--------------------------------------------------------------------
+
+* Student Structure
+    TYPES: BEGIN OF ty_student,
+             id     TYPE i,
+             name   TYPE string,
+             age    TYPE i,
+             course TYPE string,
+           END OF ty_student.
+
+* Internal Table and Work Area
+    DATA: lt_students TYPE TABLE OF ty_student,
+          ls_student  TYPE ty_student.
+
+* Insert Student 1
+    ls_student-id = 1.
+    ls_student-name = 'Sandipan'.
+    ls_student-age = 23.
+    ls_student-course = 'ABAP'.
+
+    APPEND ls_student TO lt_students.
+
+    CLEAR ls_student.
+
+* Insert Student 2
+    ls_student-id = 2.
+    ls_student-name = 'Rahul'.
+    ls_student-age = 25.
+    ls_student-course = 'JAVA'.
+
+    APPEND ls_student TO lt_students.
+
+* Display Students
+    out->write( '===== STUDENT MANAGEMENT SYSTEM =====' ).
+
+    LOOP AT lt_students INTO ls_student.
+
+      out->write(
+      |ID: { ls_student-id } Name: { ls_student-name } Age: { ls_student-age } Course: { ls_student-course }|
+      ).
+
+    ENDLOOP.
+
+
+
+*--------------------------------------------------------------------
+* PROJECT 2 : EMPLOYEE RECORD MANAGEMENT SYSTEM
+*--------------------------------------------------------------------
+
+* Employee Structure
+    TYPES: BEGIN OF ty_employee,
+             empid  TYPE i,
+             empname TYPE string,
+             dept   TYPE string,
+             salary TYPE i,
+           END OF ty_employee.
+
+* Internal Table and Work Area
+    DATA: lt_employee TYPE TABLE OF ty_employee,
+          ls_employee TYPE ty_employee.
+
+* Insert Employee 1
+    ls_employee-empid = 101.
+    ls_employee-empname = 'Sandipan'.
+    ls_employee-dept = 'IT'.
+    ls_employee-salary = 30000.
+
+    APPEND ls_employee TO lt_employee.
+
+    CLEAR ls_employee.
+
+* Insert Employee 2
+    ls_employee-empid = 102.
+    ls_employee-empname = 'Amit'.
+    ls_employee-dept = 'HR'.
+    ls_employee-salary = 25000.
+
+    APPEND ls_employee TO lt_employee.
+
+* Display Employee Records
+    out->write( '===== EMPLOYEE RECORD MANAGEMENT =====' ).
+
+    LOOP AT lt_employee INTO ls_employee.
+
+      out->write(
+      |ID: { ls_employee-empid } Name: { ls_employee-empname } Dept: { ls_employee-dept } Salary: { ls_employee-salary }|
+      ).
+
+    ENDLOOP.
+
+
+
+*--------------------------------------------------------------------
+* PROJECT 3 : BASIC SALES REPORT GENERATOR
+*--------------------------------------------------------------------
+
+* Sales Structure
+    TYPES: BEGIN OF ty_sales,
+             orderid TYPE i,
+             product TYPE string,
+             qty     TYPE i,
+             price   TYPE i,
+             total   TYPE i,
+           END OF ty_sales.
+
+* Internal Table and Work Area
+    DATA: lt_sales TYPE TABLE OF ty_sales,
+          ls_sales TYPE ty_sales.
+
+* Insert Sales Record 1
+    ls_sales-orderid = 1.
+    ls_sales-product = 'Laptop'.
+    ls_sales-qty = 2.
+    ls_sales-price = 40000.
+
+* Calculate Total
+    ls_sales-total = ls_sales-qty * ls_sales-price.
+
+    APPEND ls_sales TO lt_sales.
+
+    CLEAR ls_sales.
+
+* Insert Sales Record 2
+    ls_sales-orderid = 2.
+    ls_sales-product = 'Mouse'.
+    ls_sales-qty = 5.
+    ls_sales-price = 500.
+
+    ls_sales-total = ls_sales-qty * ls_sales-price.
+
+    APPEND ls_sales TO lt_sales.
+
+* Display Sales Report
+    out->write( '===== SALES REPORT =====' ).
+
+    LOOP AT lt_sales INTO ls_sales.
+
+      out->write(
+      |Order: { ls_sales-orderid } Product: { ls_sales-product } Qty: { ls_sales-qty } Price: { ls_sales-price } Total: { ls_sales-total }|
+      ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+ENDCLASS.
